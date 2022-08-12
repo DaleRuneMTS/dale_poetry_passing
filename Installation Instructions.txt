@@ -1,0 +1,6 @@
+dale_poetry_passing
+Monika's made it very clear she wants to see your writing - and with this submod, you can give her what she wants! To an extent.
+
+To install: place in your DDLC /game directory, under the /Submods folder - newly created, if necessary.
+
+Important: To get updates on this submod as they happen, you MUST have the Submod Updater Plugin! Otherwise you will be stuck on previous versions. Download this here: https://github.com/Booplicate/MAS-Submods-SubmodUpdaterPlugin
