@@ -6,7 +6,7 @@ init -990 python in mas_submod_utils:
         description="Monika's made it very clear she wants to see your writing - and with this submod, you can give her what she wants! To an extent."
         " To unlock, look for the 'What's with that expression?' conversation topic."
         " 2.1 ups the number of poems Moni'll recognize from 14 to 20.",
-        version="2.1",
+        version="2.1.0",
         dependencies={},
         settings_pane=None,
         version_updates={
