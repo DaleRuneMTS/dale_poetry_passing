@@ -5,11 +5,12 @@ init -990 python in mas_submod_utils:
         name="Poetry Passing",
         description="Monika's made it very clear she wants to see your writing - and with this submod, you can give her what she wants! To an extent."
         " To unlock, look for the 'What's with that expression?' conversation topic."
-        " 2.1 ups the number of poems Moni'll recognize from 14 to 20.",
-        version="2.1.0",
+        " 2.1.1 adds one more potential poem to the roster, and some extra mid-reading lines.",
+        version="2.1.1",
         dependencies={},
         settings_pane=None,
         version_updates={
+        "DaleRuneMTS_dale_poetry_passing_2_1_0": "DaleRuneMTS_dale_poetry_passing_2_1_1"
         }
     )
 
@@ -328,6 +329,7 @@ Here's what she's programmed to spot for now:
 * "Screw Indentation"
 * "Pride of Place"
 * "There Are Only So Many Poem Names I Can Think Up Please Dear God Help Me"
+* "Roses are Blue"
 
 Hope this helps, and good luck!
 
@@ -400,6 +402,7 @@ Here's what she's programmed to spot for now:
 * "Screw Indentation"
 * "Pride of Place"
 * "There Are Only So Many Poem Names I Can Think Up Please Dear God Help Me"
+* "Roses are Blue"
 
 Hope this helps, and good luck!
 
@@ -516,6 +519,11 @@ init -1 python:
         return (
             store.mas_utils.is_file_present('/characters/There Are Only So Many Poem Names I Can Think Up Please Dear God Help Me.txt')
             or store.mas_utils.is_file_present('/characters/thereareonlysomanypoemsnamesicanthinkuppleasedeargodhelpme.txt')
+        )
+    def is_poem21_present():
+        return (
+            store.mas_utils.is_file_present('/characters/Roses are Blue.txt')
+            or store.mas_utils.is_file_present('/characters/rosesareblue.txt')
         )
 
 init 5 python:
@@ -835,6 +843,25 @@ label pp_memorygauge:
             $ _history_list.pop()
             m 1fusdrb "Um, [mas_get_player_nickname()], you already gave me{fast} this one."
             jump pp_revision_or_oversight
+    elif is_poem21_present():
+        if "patrick" not in persistent._pp_poems_gotten:
+            m 1eud "{i}Roses are Blue{/i}?"
+            if m_name == "Moni" and player == "Gracie":
+                m 1euu "I think you've shown me this one before, Gracie."
+                m 1nub "Hopefully it's you that wrote it this time, and not Patrick Star?"
+                m 1huu "Ehehe~"
+                call pp_reading_start
+                call pp_reading_loop
+                call pp_heartlines
+                return
+            else:
+                m 1tua "I see we're already starting off with a subversion."
+                m 1hua "Always a good start!"
+            $ persistent._pp_poems_gotten.add("patrick")
+            jump pp_reaction_poem
+        else:
+            m 1fusdrb "Um, [mas_get_player_nickname()], you already gave me {i}Roses are Blue{/i}."
+            jump pp_revision_or_oversight
 
 label pp_revision_or_oversight:
     m 2wusdld "Not that I don't appreciate the thought, but..."
@@ -896,25 +923,37 @@ label pp_reading_loop:
             "...{w=0.7}{nw}",
             "...{w=0.7}{nw}",
             "...{w=0.7}{nw}",
-            "...{w=0.7}{nw}"
+            "...{w=0.7}{nw}",
+            "Wasn't expecting {i}that{/i} metaphor.{w=0.8}{nw}",
+            "Is that a typo, or-?{w=0.5} No, wait, that's deliberate. My mistake.{w=1}{nw}",
+            "A lovely use of simile, there.{w=0.7}{nw}"
         ]
 
         if reading_loop > 3 and reading_count < 10:
             reading_intermittences.extend([
                 "I wonder where that train of thought is going to go...{w=2}{nw}",
-                "Oh, isn't that interesting?{w=2}{nw}"
+                "Oh, isn't that interesting?{w=2}{nw}",
+                "You don't say?{w=1}{nw}"
             ])
 
         if reading_loop > 7 and reading_count < 10:
             reading_intermittences.extend([
                 renpy.substitute("Very impressive so far, [player]!{w=1.5}{nw}"),
-                "Aw, that's sweet.{w=1.5}{nw}"
+                "Aw, that's sweet.{w=1.5}{nw}",
+                "I understand that reference!{w=1.2}{nw}"
             ])
 
         if reading_loop > 10 and reading_count > 10:
             reading_intermittences.extend([
                 "Oh, {i}now{/i} I see what you meant by that.{w=2}{nw}",
                 "Okay, that makes a lot more sense now.{w=2}{nw}"
+            ])
+
+        if len(persistent._pp_poems_gotten) > 0:
+            reading_intermittences.extend([
+                "Is that a callback to your last work, or am I imagining that?{w=2}{nw}",
+                "Oh, that's meant to be a... I see.{w=2}{nw}",
+                renpy.substitute("You seem pretty fond of that word, [player].{w=2}{nw}")
             ])
 
         intermittent_exprs = [
@@ -946,8 +985,16 @@ label pp_heartlines:
             renpy.substitute("Oh, [player]! I love it!"),
             renpy.substitute("[player], you're an absolute darling."),
             renpy.substitute("That was utterly, utterly beautiful, [player]."),
-            "Oh, my heart-{w=0.5}! You're so sweet, I can't handle it."
+            "Oh, my heart-{w=0.5}! You're so sweet, I can't handle it.",
+            renpy.substitute("That was glorious, [player]. A true tour de force.")
         ]
+
+        if len(persistent._pp_poems_gotten) > 0:
+            heart_lines.extend([
+                renpy.substitute("Yet another masterwork from you, [player]!"),
+                "If you keep this up, I might have to make {i}you{/i} President of the Literature Club!",
+            ])
+
         heart_supplementaries = [
             "Who knew that getting you away from the poetry minigame would give you such a strong voice?",
             "I think I've just fallen in love with you all over again.",
@@ -958,8 +1005,18 @@ label pp_heartlines:
             "This poem's so satisfying to read, out loud {i}and{/i} in my head. I think you've got me hooked!",
             "You've hit that perfect balance between eloquence and simplicity, without crossing over to pretension. It's so very finely crafted.",
             "See? There was no need to be nervous.",
-            "And not a grammar error in sight!"
+            "And not a grammar error in sight!",
+            "You can create a very vivid image in my mind with just the use of a few words. Word economy is a pain to master, but you're already well on the way.",
+            "It still needs a little bit of work in the finer details, but I can definitely see the core of a good idea here.",
+            "My only nitpick would be with the ending. It felt a little bit rushed... unless you did that on purpose, of course?",
         ]
+
+        if len(persistent._pp_poems_gotten) > 0:
+            heart_supplementaries.extend([
+                "This one had a very different feeling to it than the works I've gotten from you before. It's great to see you branch out into new genres!",
+                "Your voice gets stronger and stronger every time I read something from you. It's wonderful to watch.",
+                "I can really tell how much you're trying to refine your craft with each new entry... and succeeding, in my book."
+            ])
 
         heart_line = renpy.random.choice(heart_lines)
         heart_supplement = renpy.random.choice(heart_supplementaries)
@@ -989,7 +1046,10 @@ label pp_reading_revision_loop:
             "...{w=0.7}{nw}",
             "...{w=0.7}{nw}",
             "...{w=0.7}{nw}",
-            "...{w=0.7}{nw}"
+            "...{w=0.7}{nw}",
+            "",
+            "",
+            ""
         ]
 
         if reading_loop > 3 and reading_count < 10:
@@ -1000,13 +1060,14 @@ label pp_reading_revision_loop:
 
         if reading_loop > 7 and reading_count < 10:
             reading_intermittences.extend([
-                "Okay...{w=0.8}{nw}"
+                "Okay...{w=0.8}{nw}",
+                "Is that different? I can't tell.{w=0.6}{nw}"
             ])
 
         if reading_loop > 10 and reading_count > 10:
             reading_intermittences.extend([
                 "Ah, I {i}see{/i}.{w=2}{nw}",
-                "Okay, that makes a lot more sense now.{w=2}{nw}"
+                "Okay, that makes a lot more sense now.{w=2}{nw}",
             ])
 
         intermittent_exprs = [
@@ -1042,9 +1103,12 @@ label pp_revision_heartlines:
 
         heart_revision_supplementaries = [
             "I can see that you've really gone in and rounded out those areas that ran on a bit long before.",
-            "Your word usage is already excellent, and I can tell you really leant on that this time around.",
+            "Your word usage is already excellent, and I can tell you really leaned on that this time around.",
             "It has quite a bit more of your style now. Your voice is so unique, and it's great to see more of it here.",
-            "You didn't cross over into hand-holding with the changes either; that's an easy pit to fall into, and you've dodged it deftly."
+            "You didn't cross over into hand-holding with the changes either; that's an easy pit to fall into, and you've dodged it deftly.",
+            renpy.substitute("A lot of the wording has been switched around, but you haven't changed the fundamental core of what makes it a [player] piece, and it works to your benefit here."),
+            "It was a risky move, taking out that last stanza; but I think it pays off.",
+            "It was a risky move, taking out that first stanza; but I think it pays off."
         ]
 
         revision_line = renpy.random.choice(heart_revision_lines)
