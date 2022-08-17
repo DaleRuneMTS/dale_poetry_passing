@@ -5,12 +5,13 @@ init -990 python in mas_submod_utils:
         name="Poetry Passing",
         description="Monika's made it very clear she wants to see your writing - and with this submod, you can give her what she wants! To an extent."
         " To unlock, look for the 'What's with that expression?' conversation topic."
-        " 2.1.1 adds one more potential poem to the roster, and some extra mid-reading lines.",
-        version="2.1.1",
+        " 2.1.2 is just a bugfix.",
+        version="2.1.2",
         dependencies={},
         settings_pane=None,
         version_updates={
-        "DaleRuneMTS_dale_poetry_passing_2_1_0": "DaleRuneMTS_dale_poetry_passing_2_1_1"
+        "DaleRuneMTS_dale_poetry_passing_2_1_0": "DaleRuneMTS_dale_poetry_passing_2_1_2",
+        "DaleRuneMTS_dale_poetry_passing_2_1_1": "DaleRuneMTS_dale_poetry_passing_2_1_2"
         }
     )
 
@@ -544,7 +545,7 @@ label monika_poetryscan:
     m 1eub "Oh, do you?"
     m 1etc "Weird, I should've detected it if that's the case."
     m "Let me just take another look.{w=1}.{w=1}.{w=1}{nw}"
-    if is_poem1_present() or is_poem2_present() or is_poem3_present() or is_poem4_present() or is_poem5_present() or is_poem6_present() or is_poem7_present() or is_poem8_present() or is_poem9_present() or is_poem10_present() or is_poem11_present() or is_poem12_present() or is_poem13_present() or is_poem14_present() or is_poem15_present() or is_poem16_present() or is_poem17_present() or is_poem18_present() or is_poem19_present() or is_poem20_present():
+    if is_poem1_present() or is_poem2_present() or is_poem3_present() or is_poem4_present() or is_poem5_present() or is_poem6_present() or is_poem7_present() or is_poem8_present() or is_poem9_present() or is_poem10_present() or is_poem11_present() or is_poem12_present() or is_poem13_present() or is_poem14_present() or is_poem15_present() or is_poem16_present() or is_poem17_present() or is_poem18_present() or is_poem19_present() or is_poem20_present() or is_poem21_present():
         if persistent._mas_bday_in_bday_mode:
             jump pp_reaction_poetry_starter_bday
         elif persistent._mas_d25_in_d25_mode:
