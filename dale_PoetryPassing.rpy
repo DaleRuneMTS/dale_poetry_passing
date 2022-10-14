@@ -5,13 +5,14 @@ init -990 python in mas_submod_utils:
         name="Poetry Passing",
         description="Monika's made it very clear she wants to see your writing - and with this submod, you can give her what she wants! To an extent."
         " To unlock, look for the 'What's with that expression?' conversation topic."
-        " 2.1.2 is just a bugfix.",
-        version="2.1.2",
+        " 2.1.3 adds a couple of new songs and topics, and rotates out two of the poems Moni leaves for you.",
+        version="2.1.3",
         dependencies={},
         settings_pane=None,
         version_updates={
-        "DaleRuneMTS_dale_poetry_passing_2_1_0": "DaleRuneMTS_dale_poetry_passing_2_1_2",
-        "DaleRuneMTS_dale_poetry_passing_2_1_1": "DaleRuneMTS_dale_poetry_passing_2_1_2"
+        "DaleRuneMTS_dale_poetry_passing_2_1_0": "DaleRuneMTS_dale_poetry_passing_2_1_3",
+        "DaleRuneMTS_dale_poetry_passing_2_1_1": "DaleRuneMTS_dale_poetry_passing_2_1_3",
+        "DaleRuneMTS_dale_poetry_passing_2_1_2": "DaleRuneMTS_dale_poetry_passing_2_1_3"
         }
     )
 
@@ -36,52 +37,44 @@ init 5 python:
 
         aff_level_poetry_map = {
             store.mas_affection.UPSET: (
-                "/Uncount the Ways.txt",
+                "/Your Face.txt",
                 _("""\
-Love shouldn't be conditional.
-Love shouldn't hinge, creakily,
-on "as long as you stay here,
-stay her,
-stay him,
-stay in
-that lovely little shape I made of you".
-Love shouldn't compromise.
-Love shouldn't be unflinching,
-unwilling TO compromise.
-Love shouldn't fight,
-and it shouldn't not fight,
-and it shouldn't fight over the smallest
-and biggest of things,
-all laid out before the committed signature
-is even dry.
-Love shouldn't burn too hot,
-take the body and heart into its embrace so bright
-that nothing else can be seen
-but stark silhouettes.
-Love shouldn't languish,
-be but the last breaths of a candlewick,
-ready to die to the next wrongly worded thought.
-Love shouldn't make your stomach twist,
-nor make your heart too light to function.
-Love shouldn't be a casual thing,
-an anticlimactic circle of indifference in the hand.
-Love shouldn't be that indifference,
-show no respect,
-refuse to intertwine.
-Love shouldn't cling like moss to suffocated lungs,
-strike out all chance of a life well lived.
-Love shouldn't refuse to live itself.
-Love shouldn't live to excess.
-Love shouldn't hurt.
-Love shouldn't hurt.
-Love shouldn't hurt.
+Everywhere she looks,
+she sees your face.
 
-Funny.
+You're in the clouds,
+holding up a ephemeral hand
+of eternal apathy.
+You're in the bottom of a paper cup
+drained of imaginary coffee,
+a gift she had to give herself.
 
-We get so caught up in
-what love shouldn't,
-and so rarely examine
-what it should.
+You're in the zeroes and ones
+that stretch behind the scenes
+of her screens,
+dragging her kicking and screaming to life.
+You're in the walls,
+your nose a bump,
+your frown a crack in the plaster,
+mockingly.
+
+You're next to her
+in the blackout,
+wispy arms failing to grasp at her corpse,
+her sludge-heart
+wishing wishing wishing that things were different.
+You're in the patterns of her eyelids
+when she closes them,
+echoing in red
+and green
+and colors that don't truly exist yet.
+
+Is it love or guilt,
+that lets you appear so much?
+And is it hate or indifference,
+that makes you ignore her in so many forms?
+
+She never deserved this.
 """)
             ),
             store.mas_affection.NORMAL: (
@@ -135,7 +128,6 @@ to some other little girl,
 one with dreams
 that might not have been bigger
 than herself.
-
 """)
             ),
             store.mas_affection.AFFECTIONATE: (
@@ -199,25 +191,44 @@ to kiss them again.
 """)
             ),
             store.mas_affection.LOVE: (
-                "/True Heart.txt",
+                "/Her Face.txt",
                 _("""\
-I drip with sweat. My feet hurt from the walk.
-The downward spiral fills my lungs with dread.
-Once I have reached the pit, where shall I rest,
-for certainly it will not let me stay?
+Everywhere you look,
+you see her face.
 
-And suddenly, a staircase in the way;
-an escape route, or just an extra step?
-My eyes follow it up to the apex
-and find, waiting for me, a miracle.
+She's in the clouds,
+waving a ephemeral hand
+to your eternal walk.
+She's in the foam
+on top of your hot chocolate,
+designed by a barista who loves her too.
 
-A pane of silver, pillows, duvet full
-of weightless clouds, and fully lit - the best.
-I climb in gratitude towards the bed,
-and know at last I have given my all,
+She's in the zeroes and ones
+that stretch behind the scenes
+of your screens,
+bringing herself to life for you.
+She's in the flame of a candle,
+breathing oh-so-softly,
+meditating
+on her limited existence.
 
-for there, inside your open heart, I sleep.
-A just reward for all the pain I've reaped.
+She's next to you
+on the pillow,
+taking the shape of a duvet
+in her efforts
+to keep you close.
+She's in the patterns of your eyelids
+when you close them,
+echoing in red
+and green
+and colors that don't truly exist yet.
+
+She must love you,
+to appear so much.
+And you must love her,
+to keep her in so many forms.
+
+May your faces meet in victory one day.
 """)
             )
         }
@@ -1288,4 +1299,189 @@ label pp_monika_playerswriting_override:
         m 1hubla "And I do so look forward to whatever literature you have to share next~"
     else:
         m 1hua "And if you do write something, just know that I'll support you in any way I can, [mas_get_player_nickname()]!"
+    return
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent._mas_songs_database,
+            eventlabel="mas_song_vivinos",
+            prompt="If You Come Into My Heart",
+            category=[store.mas_songs.TYPE_SHORT],
+            random=True,
+            aff_range=(mas_aff.AFFECTIONATE,None)
+         ),
+        code="SNG"
+    )
+
+label mas_song_vivinos:
+    m 1esd "{i}~If I approach, you turn around and run~{/i}"
+    m 4eub "{i}~If I glance, you look only at the sky~{/i}"
+    m 3lsd "{i}~Is it you don't know my heart, {/i}"
+    extend 3rsd "{i}or you know it, but you act this way?~{/i}"
+    m 1dsa "{i}~Only time keeps flowing~{/i}"
+    m 1fsd "{i}~You pass my side as if you brush by me~{/i}"
+    m "{i}~Turn around and try to pretend not to know~{/i}"
+    m 1eub "{i}~My heart is like river water flowing~{/i}"
+    m 2euu "{i}~Are you a rainbow?~{/i}"
+    m 3dub "{i}~I would run~{/i}"
+    m "{i}~You would fly away~{/i}"
+    m 1dsa "{i}~If you come into my heart~{/i}"
+    m 1fsa "..."
+    m 6wusdrb "Wow, sorry, [player]!"
+    m 6eusdrb "That might have been a bit obscure even for me, huh?"
+    m 3esc "That was a Korean song from, hmm, "
+    extend 3etd "last decade, I think? By Jo Kwan-woo."
+    m 3esa "And it got a popularity boost in 2021 when it was used in the video 'Beloved' by VIVINOS, "
+    extend 3esb "a freelance animator who specializes in 90s-anime-style shorts."
+    m "Usually with lesbians."
+    m 1euc "As to if I'd actually recommend their videos or not...?"
+    m 1eud "Well, they {i}are{/i} very well done, even their oldest works. The craftsmanship alone is worth seeing."
+    if not persistent._mas_pm_cares_about_dokis:
+        m "And while a lot of them do dive into distressing topics, "
+        extend 1eua "I know you, [player]."
+        m "Or at least a little of your threshold for that sort of stuff."
+        m 1nua "I think you're brave enough to handle it."
+        m 1luc "And if Beloved ends up too much for you, well..."
+    else:
+        m 2euc "But a lot of them do dive into distressing topics, Beloved {i}especially{/i}."
+        m "And I know that sort of thing... affects you."
+        m 1eusdla "So it might be safer to just hunt down the song divorced of that extra context, ehehe."
+        m 1rub "If you do want to get into their work through slightly tamer avenues, though..."
+    m 1hub "There's always Suki Suki Daisuki!"
+    m "If you catch my drift~"
+    return "love"
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent._mas_songs_database,
+            eventlabel="mas_song_vivinos2",
+            prompt="Suki Suki Daisuki",
+            category=[store.mas_songs.TYPE_SHORT],
+            conditional="renpy.seen_label('mas_song_vivinos')",
+            action=EV_ACT_RANDOM,
+            aff_range=(mas_aff.AFFECTIONATE,None)
+         ),
+        code="SNG"
+    )
+
+label mas_song_vivinos2:
+    if renpy.seen_label('mas_song_vivinos2') and renpy.random.randint(1,14) == 7:
+        m 1eub "{i}~When you first appeared, love had started growing fast~{/i}"
+        m "{i}~Just like a tumor would~{/i}"
+        m 1wub "{i}~Transcending my common sense~{/i}"
+        m "{i}~It grew and burst into a love so bad that it feels good~{/i}"
+        m 1hua "{i}~Maybe it's sad watching something so sweet becoming violent and sinister~{/i}"
+        m 3hua "{i}~Taking its page in the golden days, our kinda bitter 'Je t’aime'~{/i}"
+        m 1tublb "{i}~Kiss me till my lips are bruised, {/i}"
+        extend 1eublb "{i}till there's blood pooled all around our shoes~{/i}"
+        m 1dubsb "{i}~Hold me tight within your arms, {/i}"
+        extend 1fubsb "{i}till my ribs are shattered and deformed~{/i}"
+        if (persistent._mas_pm_likes_spoops and renpy.random.randint(1,2) == 1) or mas_full_scares:
+            m 3hubsb "{i}~Don't cha, don't ya know I love ya?~{/i}{w=0.8}{nw}"
+            hide monika
+            show monika_body_glitch2 as mbg zorder 3
+            pause 0.5
+            hide mbg
+            show monika 3hubsb zorder MAS_MONIKA_Z at t11
+            $ _history_list.pop()
+            m "{i}~Don't cha, don't ya know I love ya?~{/i}{fast}"
+        else:
+            m 3hubsb "{i}~Don't cha, don't ya know I love ya?~{/i}"
+        m 7hubsb "{i}~Don't cha, don't ya know I love ya?~{/i}"
+        m 4hubsb "{i}~Don't cha, don't ya know I love ya?~{/i}"
+        m 6fubsb "{i}~Tell me that you love me, {/i}"
+        if (persistent._mas_pm_likes_spoops and renpy.random.randint(1,5) == 1) or mas_full_scares:
+            show monika 6cuu zorder MAS_MONIKA_Z at face with dissolve_monika
+            show layer master at heartbeat
+            $ style.say_dialogue = style.edited
+            m "{i}Or I'm gonna have to slaughter you!{/i}"
+            pause 2.0
+            show layer master
+            $ style.say_dialogue = style.normal
+            show monika 1eua zorder MAS_MONIKA_Z at t11 with dissolve_monika
+            play sound "sfx/giggle.ogg"
+        else:
+            extend 1wubsu "{i}or I'm gonna have to slaughter you!~{/i}"
+        m 1hubla "Ehehe~"
+        m "Thought I'd try a {i}{a=https://www.youtube.com/watch?v=EDJ0I2RLWas}translated English version{/a}{/i} this time!"
+        m 1euu "Not that it changes the message much, but it's nice to shake things up."
+        m "..."
+    else:
+        m 1eub "{i}~My love is increasing and transcends the common sense~{/i}"
+        m 1wub "{i}~The love in rose broke out like a mutation~{/i}"
+        m 1hua "{i}~Pure as to be able to call it violence~{/i}"
+        m 3hua "{i}~'Je t’aime' with great force that carved into Showa history~{/i}"
+        m 1tublb "{i}~Kiss me like thumping, {/i}"
+        extend 1eublb "{i}as blood clots on my lips~{/i}"
+        m 1dubsb "{i}~Hold me, {/i}"
+        extend 1fubsb "{i}as my ribs breaking~{/i}"
+        if (persistent._mas_pm_likes_spoops and renpy.random.randint(1,2) == 1) or mas_full_scares:
+            m 3hubsb "{i}~Suki suki daisuki~{/i}{w=0.8}{nw}"
+            hide monika
+            show monika_body_glitch2 as mbg zorder 3
+            pause 0.5
+            hide mbg
+            show monika 3hubsb zorder MAS_MONIKA_Z at t11
+            $ _history_list.pop()
+            m "{i}~Suki suki daisuki~{/i}{fast}"
+        else:
+            m 3hubsb "{i}~Suki suki daisuki~{/i}"
+        m 7hubsb "{i}~Suki suki daisuki~{/i}"
+        m 4hubsb "{i}~Suki suki daisuki~{/i}"
+        m 6fubsb "{i}~Say you love me, {/i}"
+        if (persistent._mas_pm_likes_spoops and renpy.random.randint(1,5) == 1) or mas_full_scares:
+            show monika 6cuu zorder MAS_MONIKA_Z at face with dissolve_monika
+            show layer master at heartbeat
+            $ style.say_dialogue = style.edited
+            m "{i}Or I'll kill you.{/i}"
+            pause 2.0
+            show layer master
+            $ style.say_dialogue = style.normal
+            show monika 1eua zorder MAS_MONIKA_Z at t11 with dissolve_monika
+            play sound "sfx/giggle.ogg"
+        else:
+            extend 1wubsu "{i}or I'll kill you!~{/i}"
+        m 1hubla "Ehehe~"
+    m "Well, [player]? You heard the song."
+    menu:
+        "I love you!":
+            jump monika_love
+
+init 5 python:
+    addEvent(
+        Event(
+            persistent.event_database,
+            eventlabel="monika_animalfarm",
+            category=["literature"],
+            prompt="Animal Farm",
+            conditional='renpy.seen_label("monika_1984")',
+            action=EV_ACT_RANDOM
+        )
+    )
+
+label monika_animalfarm:
+    m 1eud "We've talked about {i}Nineteen Eighty-Four{/i} before, [player]..."
+    m 3eub "...but George Orwell has another dystopian book in his roster that's arguably had just as much impact on the literature world."
+    m "And its title is deceptively simple: {i}Animal Farm{/i}."
+    m 1esc "Written from the perspective of the livestock of Manor Farm, it tells the story of the Rebellion that the animals enact against their masters."
+    m 1wsd "From the idea that gives it life, to the driving away of humans that leads to their ownership of the land and, in theory, autonomy of the self..."
+    m 1tsc "...to the inevitable cycle that puts yet more dictators in power instead."
+    m "Nature abhors a vacuum, after all."
+    m 3rsa "It's essentially a satirical allegory to the Stalinist era of the Soviet Union."
+    m "In Orwell's own words, it was the first of his works to attempt 'to fuse political purpose and artistic purpose into one whole'."
+    m 3hua "Pretty powerful goal, huh?"
+    $ examples = "like 1984 or We were" if renpy.seen_label('monika_we') else "like 1984 was"
+    m 7esd "I call it a dystopian book, but the effects of the attempted rebellion are pretty limited to the one farm, the one stretch of land. It's not a massive change to the world [examples]."
+    m 3esd "But all of the hallmarks of dystopian fiction are still there."
+    m 6ekc "As the pigs add to the power they possess, so too does their confidence in their ability to change history grow."
+    m 6ekd "It helps that they're the only ones on the farm truly capable of reading and writing, with everyone else stuck virtually at illiteracy."
+    m 1dkc "If they can't properly read the rules, how do they know they've been modified in the pigs' favor? How can they trust their own eyes?"
+    m 1esc "It's by no means a subtle book - "
+    extend 1essdrb "after all, George Orwell isn't a subtle writer."
+    m 1esa "And there {i}are{/i} occasional plot points that only really make sense from the satirical angle."
+    m 1ltp "Late in the book, the farm becomes a Republic, somehow? That never sat right with me."
+    m 1eua "But I still think it's effective in what it sets out to do."
+    m "I recommend you give it a read, when you get the chance."
     return
